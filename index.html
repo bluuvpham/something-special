@@ -6,15 +6,16 @@
 
 <title>For You 💗</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins&family=Pacifico&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
-  font-family:'Poppins', sans-serif;
+  font-family:'Poppins',sans-serif;
+  background:url("bg.jpg") no-repeat center/cover;
   overflow:hidden;
-  background:#ffc0cb;
   color:white;
+  text-align:center;
 }
 
 /* SECTION */
@@ -24,13 +25,32 @@ body{
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  position:relative;
 }
 .active{display:flex;}
 
+/* GLASS BOX */
+.box{
+  background:rgba(0,0,0,0.4);
+  padding:30px;
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+}
+
+/* PIN */
+.pin input{
+  width:40px;
+  height:50px;
+  margin:5px;
+  font-size:22px;
+  text-align:center;
+  border-radius:10px;
+  border:none;
+}
+
 /* BUTTON */
 button{
-  padding:12px 25px;
+  margin-top:15px;
+  padding:10px 20px;
   border:none;
   border-radius:20px;
   background:#ff4d6d;
@@ -38,240 +58,382 @@ button{
   cursor:pointer;
 }
 
-/* BUNNY */
-.bunny{font-size:60px; animation:float 2s infinite;}
-@keyframes float{50%{transform:translateY(-10px);}}
-
-/* ===== NIGHT SKY ===== */
-.sky{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background: radial-gradient(circle at center, #1a2a4f, #0b1440);
+/* CLAW AREA */
+.claw-area{
+  position:relative;
+  width:300px;
+  height:300px;
+  border:2px dashed white;
+  border-radius:15px;
   overflow:hidden;
-}
-
-/* stars */
-.star{
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:white;
-  animation:twinkle 2s infinite alternate;
-}
-@keyframes twinkle{
-  from{opacity:0.3;}
-  to{opacity:1;}
-}
-
-/* moon */
-.moon{
-  position:absolute;
-  top:80px;
-  left:50%;
-  transform:translateX(-50%) scale(0);
-  width:120px;
-  height:120px;
-  background: radial-gradient(circle,#fff,#ddd);
-  border-radius:50%;
-  box-shadow:-30px 0 0 10px #0b1440;
-  animation:moonAppear 2s forwards;
-}
-@keyframes moonAppear{
-  to{transform:translateX(-50%) scale(1);}
-}
-
-/* cloud */
-.cloud{
-  position:absolute;
-  width:200px;
-  opacity:0;
-}
-.cloud.left{left:-250px; top:150px; animation:cloudL 6s forwards;}
-.cloud.right{right:-250px; top:180px; animation:cloudR 6s forwards; animation-delay:1s;}
-
-@keyframes cloudL{
-  to{transform:translateX(300px); opacity:0.8;}
-}
-@keyframes cloudR{
-  to{transform:translateX(-300px); opacity:0.8;}
-}
-
-/* character */
-.character{
-  position:absolute;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:300px;
-}
-
-/* letter */
-.letter{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%) scale(0.8);
-  width:300px;
-  padding:25px;
-  border-radius:20px;
-  background:rgba(255,255,255,0.1);
-  backdrop-filter:blur(10px);
-  opacity:0;
-  animation:fadeIn 2s forwards;
-  animation-delay:2s;
-}
-.letter h2{
-  font-family:'Great Vibes', cursive;
-  font-size:28px;
-}
-@keyframes fadeIn{
-  to{opacity:1; transform:translate(-50%,-50%) scale(1);}
-}
-
-/* CHAT */
-.chat-box{
-  background:white;
-  color:black;
-  padding:20px;
-  border-radius:15px;
-}
-
-/* FOTO */
-img{
-  width:200px;
-  border-radius:15px;
 }
 
 /* HEART */
 .heart{
   position:absolute;
-  animation:fall 5s linear infinite;
+  font-size:30px;
+  animation:float 2s infinite ease-in-out;
+  cursor:pointer;
 }
-@keyframes fall{
-  0%{top:-10%;}
-  100%{top:110%;}
+
+@keyframes float{
+  50%{transform:translateY(-10px);}
 }
+
+/* FADE */
+.fade{
+  animation:fade 1s;
+}
+@keyframes fade{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
 </style>
 </head>
 
 <body>
 
-<audio id="music" loop>
-<source src="https://files.catbox.moe/5q8f4z.mp3">
-</audio>
+<!-- SOUND -->
+<audio id="clickS" src="https://files.catbox.moe/5x0p8y.mp3"></audio>
+<audio id="winS" src="https://files.catbox.moe/9n3z5y.mp3"></audio>
 
-<!-- OPEN -->
-<div class="section active" id="open">
-  <div class="bunny">🐰</div>
-  <h1>Open This 💌</h1>
-  <button onclick="next('game')">Open</button>
-</div>
+<!-- MUSIC -->
+<audio id="music" loop></audio>
 
-<!-- GAME -->
-<div class="section" id="game">
-  <h2>Aku lucu ga? 😤</h2>
-  <button onclick="next('game2')">Lucu banget 💕</button>
-  <button onclick="next('game2')">Lucu banget banget 😭</button>
-</div>
-
-<div class="section" id="game2">
-  <h2>Kamu sayang aku ga? 😳</h2>
-  <button onclick="next('night')">Iya 💕</button>
-  <button id="noBtn">Engga 😒</button>
-</div>
-
-<!-- NIGHT SKY -->
-<div class="section" id="night">
-  <div class="sky" id="sky"></div>
-
-  <div class="moon"></div>
-
-  <img src="https://i.imgur.com/9QxZ5QF.png" class="cloud left">
-  <img src="https://i.imgur.com/9QxZ5QF.png" class="cloud right">
-
-  <!-- GANTI PNG DISINI -->
-  <img src="https://i.imgur.com/8Km9tLL.png" class="character">
-
-  <div class="letter">
-    <h2>For You 💗</h2>
-    <p>
-      di antara semua bintang di langit ini,<br>
-      aku bersyukur pernah menemukanmu.<br><br>
-      terima kasih sudah jadi bagian terindah.<br><br>
-      aku sayang kamu…
-    </p>
+<!-- PIN -->
+<div class="section active" id="pin">
+  <div class="box fade">
+    <h2>Masukin tanggal kita 💗</h2>
+    <div class="pin">
+      <input maxlength="1" oninput="nextInput(this,1)">
+      <input maxlength="1" oninput="nextInput(this,2)">
+      <input maxlength="1" oninput="nextInput(this,3)">
+      <input maxlength="1" oninput="nextInput(this,4)">
+      <input maxlength="1" oninput="nextInput(this,5)">
+      <input maxlength="1">
+    </div>
+    <button onclick="checkPin()">Open</button>
   </div>
-
-  <button style="position:absolute; bottom:40px;" onclick="next('chat')">Next</button>
 </div>
 
-<!-- CHAT -->
-<div class="section" id="chat">
-  <div class="chat-box">
-    <div>haiii</div>
-    <div>kamu siapa 😳</div>
-    <div>aku orang yang bakal sayang kamu 😤💗</div>
+<!-- CLAW INTRO -->
+<div class="section" id="intro">
+  <div class="box fade">
+    <h2>
+      Satu misi kecil sebelum kita lanjut 💗<br><br>
+      Catch my heart to unlock the next chapter
+    </h2>
+    <button onclick="next('claw')">Start</button>
   </div>
-  <button onclick="next('foto')">Next</button>
 </div>
 
-<!-- FOTO -->
-<div class="section" id="foto">
-  <h2>Momen Kita 💗</h2>
-  <img src="https://i.imgur.com/8Km9tLL.jpg">
-  <img src="https://i.imgur.com/j6qG5xM.jpg">
-  <button onclick="next('surprise')">Next</button>
+<!-- CLAW GAME -->
+<div class="section" id="claw">
+  <div class="box">
+    <h2>Ambil hatinya 😤💗</h2>
+    <div class="claw-area" id="area"></div>
+  </div>
 </div>
 
-<!-- SURPRISE -->
-<div class="section" id="surprise">
-  <h1>💗 SURPRISE 💗</h1>
-  <button onclick="next('final')">Open</button>
-</div>
-
-<!-- FINAL -->
-<div class="section" id="final">
-  <h1>For You 💗</h1>
-  <p>makasih ya udah ada… aku sayang kamu 😭💗</p>
+<!-- WIN -->
+<div class="section" id="win">
+  <div class="box fade">
+    <h2>
+      You got it! 💗<br><br>
+      Hati aku emang selalu punya magnet tersendiri kalau sama kamu.<br><br>
+      Ready for the next surprise?
+    </h2>
+    <button onclick="next('nextPart')">Next</button>
+  </div>
 </div>
 
 <script>
+
+/* MUSIC RANDOM (GANTI SENDIRI) */
+let songs=[
+  "lagu1.mp3",
+  "lagu2.mp3",
+  "lagu3.mp3"
+];
+
+let music=document.getElementById("music");
+music.src=songs[Math.floor(Math.random()*songs.length)];
+
+/* SOUND */
+function clickSound(){
+  document.getElementById("clickS").play();
+}
+function winSound(){
+  document.getElementById("winS").play();
+}
+
+/* PIN */
+const correct="120624"; // GANTI
+
+function nextInput(el,i){
+  if(el.value.length==1){
+    el.parentElement.children[i]?.focus();
+  }
+}
+
+function checkPin(){
+  clickSound();
+
+  let val=[...document.querySelectorAll(".pin input")].map(i=>i.value).join("");
+
+  if(val===correct){
+    next('intro');
+    music.play();
+  }else{
+    alert("salah 😒");
+  }
+}
+
+/* NAV */
 function next(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.getElementById("music").play();
 }
 
-/* NO BUTTON */
-const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",()=>{
-  noBtn.style.position="absolute";
-  noBtn.style.left=Math.random()*80+"%";
-  noBtn.style.top=Math.random()*80+"%";
-});
+/* CLAW GAME */
+function spawnHearts(){
+  let area=document.getElementById("area");
 
-/* STARS */
-const sky=document.getElementById("sky");
-for(let i=0;i<120;i++){
-  let s=document.createElement("div");
-  s.className="star";
-  s.style.top=Math.random()*100+"%";
-  s.style.left=Math.random()*100+"%";
-  s.style.animationDelay=Math.random()*2+"s";
-  sky.appendChild(s);
+  for(let i=0;i<5;i++){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💗";
+
+    h.style.top=Math.random()*250+"px";
+    h.style.left=Math.random()*250+"px";
+
+    h.onclick=()=>{
+      winSound();
+      next('win');
+    }
+
+    area.appendChild(h);
+  }
 }
 
-/* HEART */
-setInterval(()=>{
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="💗";
-  h.style.left=Math.random()*100+"vw";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),5000);
-},600);
+spawnHearts();
+
 </script>
 
 </body>
-</html>
+
+<!-- PHOTOBOOTH INTRO -->
+<div class="section" id="photoboothIntro">
+  <div class="box fade">
+    <h2>Tap photobooth 📸</h2>
+    <div onclick="next('coin')" style="font-size:60px; cursor:pointer;">📸</div>
+  </div>
+</div>
+
+<!-- INSERT HEART -->
+<div class="section" id="coin">
+  <div class="box fade">
+    <h2>Insert your heart 💗</h2>
+    <button onclick="startPhoto()">Insert</button>
+  </div>
+</div>
+
+<!-- PHOTO RESULT -->
+<div class="section" id="photobooth">
+  <div class="box">
+    <h2>Choose Frame 💗</h2>
+
+    <!-- FRAME OPTIONS -->
+    <div>
+      <button onclick="setFrame(1)">Frame 1</button>
+      <button onclick="setFrame(2)">Frame 2</button>
+      <button onclick="setFrame(3)">Frame 3</button>
+      <button onclick="setFrame(4)">Frame 4</button>
+    </div>
+
+    <!-- PHOTO AREA -->
+    <div id="photoArea" style="position:relative; margin-top:20px;">
+      <img id="photo" src="foto1.jpg" width="200">
+      <img id="frame" src="frame1.png" width="200" style="position:absolute; top:0; left:0;">
+    </div>
+
+    <!-- STICKER -->
+    <div>
+      <button onclick="addSticker('💗')">💗</button>
+      <button onclick="addSticker('⭐')">⭐</button>
+      <button onclick="addSticker('🌸')">🌸</button>
+      <button onclick="addSticker('✨')">✨</button>
+    </div>
+
+    <br>
+    <button onclick="saveImage()">Save</button>
+    <button onclick="next('memory')">Next</button>
+
+  </div>
+</div>
+
+<script>
+/* START PHOTO */
+function startPhoto(){
+  next('photobooth');
+}
+
+/* FRAME */
+function setFrame(n){
+  document.getElementById("frame").src="frame"+n+".png";
+}
+
+/* STICKER */
+function addSticker(icon){
+  let s=document.createElement("div");
+  s.innerHTML=icon;
+  s.style.position="absolute";
+  s.style.fontSize="24px";
+  s.style.top=Math.random()*150+"px";
+  s.style.left=Math.random()*150+"px";
+  document.getElementById("photoArea").appendChild(s);
+}
+
+/* SAVE IMAGE (basic) */
+function saveImage(){
+  alert("Save png");
+}
+
+<style>
+#memory{
+  display:none;
+  position:relative;
+  width:100%;
+  height:100vh;
+}
+
+#memory.active{
+  display:block !important;
+}
+
+.memory-wrapper{
+  position:relative;
+  width:100%;
+  height:100%;
+}
+
+.mainPhoto{
+  position:absolute;
+  width:200px;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  border-radius:15px;
+  box-shadow:0 0 20px pink;
+  z-index:2;
+}
+
+.chat{
+  position:absolute;
+  width:120px;
+  border-radius:10px;
+  z-index:1;
+}
+
+.note{
+  position:absolute;
+  font-family:'Great Vibes', cursive;
+  font-size:18px;
+  color:white;
+  transform:rotate(-10deg);
+  z-index:3;
+}
+
+.wheel{
+  width:200px;
+  height:200px;
+  border-radius:50%;
+  border:5px solid white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:40px;
+  margin:20px auto;
+  transition: transform 3s cubic-bezier(0.25,1,0.5,1);
+}
+
+.final-bg{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background: radial-gradient(circle,#1a1a2e,#000);
+}
+
+.final-letter{
+  position:relative;
+  z-index:2;
+  max-width:300px;
+  margin:auto;
+  padding:20px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+  animation:fadeIn 2s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+<div class="section" id="memory">
+
+  <div class="memory-wrapper">
+
+    <img src="hasil.png" class="mainPhoto">
+
+    <img src="chat1.jpg" class="chat" style="top:10%; left:10%;">
+    <img src="chat2.jpg" class="chat" style="top:15%; right:10%;">
+    <img src="chat3.jpg" class="chat" style="bottom:20%; left:15%;">
+    <img src="chat4.jpg" class="chat" style="bottom:10%; right:10%;">
+    <img src="chat5.jpg" class="chat" style="top:50%; left:5%;">
+
+    <div class="note" style="top:5%; left:30%;">ini awal kita kenal 😭 ➝</div>
+    <div class="note" style="bottom:15%; right:20%;">kamu mulai manis 😤💗</div>
+    <div class="note" style="top:40%; right:5%;">aku udah jatuh 😭</div>
+
+  </div>
+
+  <button onclick="next('spin')">Next</button>
+
+</div>
+
+let spinS = new Audio("spin.mp3");
+
+function startSpin(){
+  spinS.play();
+
+  let wheel = document.getElementById("wheel");
+  let deg = 1080 + Math.random()*360;
+
+  wheel.style.transform = "rotate("+deg+"deg)";
+
+  setTimeout(()=>{
+    next('final');
+    startTyping();
+  },3000);
+}
+
+let finalMsg = "makasih ya udah bertahan sejauh ini...\naku beneran bersyukur bisa punya kamu 😭💗\n\nsemoga kita selalu sama ya...";
+let i = 0;
+
+function startTyping(){
+  let el = document.getElementById("finalText");
+  el.innerHTML = "";
+
+  function type(){
+    if(i < finalMsg.length){
+      el.innerHTML += finalMsg.charAt(i);
+      i++;
+      setTimeout(type,50);
+    }
+  }
+
+  type();
+}
