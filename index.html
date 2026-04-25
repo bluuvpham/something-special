@@ -3,92 +3,154 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>For You 💗</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins&family=Pacifico&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: #ffc0cb;
-  overflow: hidden;
-  text-align: center;
-  color: #fff;
+body{
+  margin:0;
+  font-family:'Poppins', sans-serif;
+  overflow:hidden;
+  background:#ffc0cb;
+  color:white;
 }
 
-.section {
-  display: none;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+/* SECTION */
+.section{
+  display:none;
+  height:100vh;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  position:relative;
 }
-
-.active {
-  display: flex;
-}
+.active{display:flex;}
 
 /* BUTTON */
-button {
-  padding: 12px 25px;
-  margin: 10px;
-  border: none;
-  border-radius: 20px;
-  background: #ff4d6d;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-}
-button:hover {
-  transform: scale(1.1);
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:20px;
+  background:#ff4d6d;
+  color:white;
+  cursor:pointer;
 }
 
 /* BUNNY */
-.bunny {
-  font-size: 60px;
-  animation: float 2s infinite;
-}
-@keyframes float {
-  50% { transform: translateY(-10px); }
+.bunny{font-size:60px; animation:float 2s infinite;}
+@keyframes float{50%{transform:translateY(-10px);}}
+
+/* ===== NIGHT SKY ===== */
+.sky{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background: radial-gradient(circle at center, #1a2a4f, #0b1440);
+  overflow:hidden;
 }
 
-/* NIGHT SKY */
-.night {
-  background: linear-gradient(#1a1a2e, #16213e);
+/* stars */
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+  from{opacity:0.3;}
+  to{opacity:1;}
+}
+
+/* moon */
+.moon{
+  position:absolute;
+  top:80px;
+  left:50%;
+  transform:translateX(-50%) scale(0);
+  width:120px;
+  height:120px;
+  background: radial-gradient(circle,#fff,#ddd);
+  border-radius:50%;
+  box-shadow:-30px 0 0 10px #0b1440;
+  animation:moonAppear 2s forwards;
+}
+@keyframes moonAppear{
+  to{transform:translateX(-50%) scale(1);}
+}
+
+/* cloud */
+.cloud{
+  position:absolute;
+  width:200px;
+  opacity:0;
+}
+.cloud.left{left:-250px; top:150px; animation:cloudL 6s forwards;}
+.cloud.right{right:-250px; top:180px; animation:cloudR 6s forwards; animation-delay:1s;}
+
+@keyframes cloudL{
+  to{transform:translateX(300px); opacity:0.8;}
+}
+@keyframes cloudR{
+  to{transform:translateX(-300px); opacity:0.8;}
+}
+
+/* character */
+.character{
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:300px;
+}
+
+/* letter */
+.letter{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) scale(0.8);
+  width:300px;
+  padding:25px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+  opacity:0;
+  animation:fadeIn 2s forwards;
+  animation-delay:2s;
+}
+.letter h2{
+  font-family:'Great Vibes', cursive;
+  font-size:28px;
+}
+@keyframes fadeIn{
+  to{opacity:1; transform:translate(-50%,-50%) scale(1);}
 }
 
 /* CHAT */
-.chat-box {
-  background: white;
-  color: black;
-  padding: 20px;
-  border-radius: 15px;
-  width: 80%;
-  max-width: 300px;
-}
-.msg {
-  background: #ffc0cb;
-  padding: 8px;
-  border-radius: 10px;
-  margin: 5px;
+.chat-box{
+  background:white;
+  color:black;
+  padding:20px;
+  border-radius:15px;
 }
 
 /* FOTO */
-img {
-  width: 200px;
-  border-radius: 15px;
-  margin: 10px;
+img{
+  width:200px;
+  border-radius:15px;
 }
 
-/* HEART FALL */
-.heart {
-  position: absolute;
-  animation: fall 5s linear infinite;
+/* HEART */
+.heart{
+  position:absolute;
+  animation:fall 5s linear infinite;
 }
-@keyframes fall {
-  0% { top: -10%; }
-  100% { top: 110%; }
+@keyframes fall{
+  0%{top:-10%;}
+  100%{top:110%;}
 }
 </style>
 </head>
@@ -96,17 +158,17 @@ img {
 <body>
 
 <audio id="music" loop>
-<source src="https://files.catbox.moe/5q8f4z.mp3" type="audio/mp3">
+<source src="https://files.catbox.moe/5q8f4z.mp3">
 </audio>
 
-<!-- 1 OPEN -->
+<!-- OPEN -->
 <div class="section active" id="open">
   <div class="bunny">🐰</div>
   <h1>Open This 💌</h1>
   <button onclick="next('game')">Open</button>
 </div>
 
-<!-- 2 MINI GAME -->
+<!-- GAME -->
 <div class="section" id="game">
   <h2>Aku lucu ga? 😤</h2>
   <button onclick="next('game2')">Lucu banget 💕</button>
@@ -119,23 +181,42 @@ img {
   <button id="noBtn">Engga 😒</button>
 </div>
 
-<!-- 3 NIGHT SKY -->
-<div class="section night" id="night">
-  <h2 id="nightText"></h2>
-  <button onclick="next('chat')">Lanjut…</button>
+<!-- NIGHT SKY -->
+<div class="section" id="night">
+  <div class="sky" id="sky"></div>
+
+  <div class="moon"></div>
+
+  <img src="https://i.imgur.com/9QxZ5QF.png" class="cloud left">
+  <img src="https://i.imgur.com/9QxZ5QF.png" class="cloud right">
+
+  <!-- GANTI PNG DISINI -->
+  <img src="https://i.imgur.com/8Km9tLL.png" class="character">
+
+  <div class="letter">
+    <h2>For You 💗</h2>
+    <p>
+      di antara semua bintang di langit ini,<br>
+      aku bersyukur pernah menemukanmu.<br><br>
+      terima kasih sudah jadi bagian terindah.<br><br>
+      aku sayang kamu…
+    </p>
+  </div>
+
+  <button style="position:absolute; bottom:40px;" onclick="next('chat')">Next</button>
 </div>
 
-<!-- 4 CHAT -->
+<!-- CHAT -->
 <div class="section" id="chat">
   <div class="chat-box">
-    <div class="msg">haiii</div>
-    <div class="msg">kamu siapa 😳</div>
-    <div class="msg">aku orang yang bakal sayang kamu 😤💗</div>
+    <div>haiii</div>
+    <div>kamu siapa 😳</div>
+    <div>aku orang yang bakal sayang kamu 😤💗</div>
   </div>
   <button onclick="next('foto')">Next</button>
 </div>
 
-<!-- 5 FOTO -->
+<!-- FOTO -->
 <div class="section" id="foto">
   <h2>Momen Kita 💗</h2>
   <img src="https://i.imgur.com/8Km9tLL.jpg">
@@ -143,59 +224,45 @@ img {
   <button onclick="next('surprise')">Next</button>
 </div>
 
-<!-- 6 SURPRISE -->
+<!-- SURPRISE -->
 <div class="section" id="surprise">
   <h1>💗 SURPRISE 💗</h1>
-  <p>aku ada sesuatu buat kamu…</p>
   <button onclick="next('final')">Open</button>
 </div>
 
-<!-- 7 FINAL -->
+<!-- FINAL -->
 <div class="section" id="final">
   <h1>For You 💗</h1>
-  <p id="finalText"></p>
+  <p>makasih ya udah ada… aku sayang kamu 😭💗</p>
 </div>
 
 <script>
 function next(id){
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   document.getElementById("music").play();
 }
 
-/* NO BUTTON KABUR */
-const noBtn = document.getElementById("noBtn");
-noBtn.addEventListener("mouseover", () => {
-  noBtn.style.position = "absolute";
-  noBtn.style.left = Math.random()*80 + "%";
-  noBtn.style.top = Math.random()*80 + "%";
+/* NO BUTTON */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",()=>{
+  noBtn.style.position="absolute";
+  noBtn.style.left=Math.random()*80+"%";
+  noBtn.style.top=Math.random()*80+"%";
 });
 
-/* NIGHT TEXT */
-let text = "di antara semua bintang... aku tetap milih kamu 💗";
-let i=0;
-function typing(){
-  if(i < text.length){
-    document.getElementById("nightText").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typing,50);
-  }
+/* STARS */
+const sky=document.getElementById("sky");
+for(let i=0;i<120;i++){
+  let s=document.createElement("div");
+  s.className="star";
+  s.style.top=Math.random()*100+"%";
+  s.style.left=Math.random()*100+"%";
+  s.style.animationDelay=Math.random()*2+"s";
+  sky.appendChild(s);
 }
-setTimeout(typing,1000);
 
-/* FINAL TEXT */
-let final = "makasih ya udah ada... aku sayang kamu lebih dari yang kamu tau 😭💗";
-let j=0;
-function finalTyping(){
-  if(j < final.length){
-    document.getElementById("finalText").innerHTML += final.charAt(j);
-    j++;
-    setTimeout(finalTyping,50);
-  }
-}
-setTimeout(finalTyping,5000);
-
-/* HEART FALL */
+/* HEART */
 setInterval(()=>{
   let h=document.createElement("div");
   h.className="heart";
@@ -203,7 +270,7 @@ setInterval(()=>{
   h.style.left=Math.random()*100+"vw";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),5000);
-},500);
+},600);
 </script>
 
 </body>
